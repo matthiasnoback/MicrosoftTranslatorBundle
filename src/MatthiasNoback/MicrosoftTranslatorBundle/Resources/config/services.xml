@@ -1,0 +1,63 @@
+<?xml version="1.0" ?>
+
+<container xmlns="http://symfony.com/schema/dic/services"
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+
+    <services>
+        <service id="matthiasnoback_microsoft_translator.browser.journal"
+                 class="Buzz\Listener\History\Journal"
+                 public="false">
+            <call method="setLimit">
+                <argument>100</argument>
+            </call>
+        </service>
+
+        <service id="matthiasnoback_microsoft_translator.browser.history_listener"
+                 class="Buzz\Listener\HistoryListener">
+            <argument type="service" id="matthiasnoback_microsoft_translator.browser.journal" />
+        </service>
+
+        <service id="matthiasnoback_microsoft_translator.browser"
+                 class="Buzz\Browser"
+                 public="false">
+            <argument type="service" id="matthiasnoback_microsoft_translator.browser_client" />
+            <call method="addListener">
+                <argument type="service" id="matthiasnoback_microsoft_translator.browser.history_listener" />
+            </call>
+        </service>
+
+        <service id="matthiasnoback_microsoft_translator.data_collector"
+                 class="MatthiasNoback\MicrosoftTranslatorBundle\DataCollector\MicrosoftTranslatorDataCollector">
+            <argument type="service" id="matthiasnoback_microsoft_translator.browser.journal" />
+            <tag name="data_collector"
+                 template="MatthiasNobackMicrosoftTranslatorBundle:Profiler:MicrosoftTranslator.html.twig"
+                 id="microsoft_translator" />
+        </service>
+
+        <service id="matthiasnoback_microsoft_translator.access_token_cache"
+                 class="MatthiasNoback\MicrosoftOAuth\AccessTokenCache"
+                 public="false">
+            <argument type="service" id="matthiasnoback_microsoft_translator.access_token_cache.cache" />
+        </service>
+
+        <service id="matthiasnoback_microsoft_translator.access_token_provider"
+                 class="MatthiasNoback\MicrosoftOAuth\AccessTokenProvider">
+            <argument type="service" id="matthiasnoback_microsoft_translator.browser" />
+            <argument>%microsoft_oauth.client_id%</argument>
+            <argument>%microsoft_oauth.client_secret%</argument>
+            <call method="setCache">
+                <argument type="service" id="matthiasnoback_microsoft_translator.access_token_cache" />
+            </call>
+        </service>
+
+        <service id="matthiasnoback_microsoft_translator.translator"
+                 class="MatthiasNoback\MicrosoftTranslator\MicrosoftTranslator">
+            <argument type="service" id="matthiasnoback_microsoft_translator.browser" />
+            <argument type="service" id="matthiasnoback_microsoft_translator.access_token_provider" />
+        </service>
+
+        <service id="microsoft_translator" alias="matthiasnoback_microsoft_translator.translator" />
+    </services>
+
+</container>

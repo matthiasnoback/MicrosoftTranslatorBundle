@@ -1,0 +1,23 @@
+{
+    "name": "matthiasnoback/microsoft-translator-bundle",
+    "type": "library",
+    "description": "Bundle for using the Microsoft Translator V2 API",
+    "keywords": ["translate","Microsoft Translator", "Bing"],
+    "homepage": "http://github.com/matthiasnoback/microsoft-translator-bundle",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Matthias Noback",
+            "email": "matthiasnoback@gmail.com",
+            "homepage": "http://php-and-symfony.matthiasnoback.nl"
+        }
+    ],
+    "require": {
+        "matthiasnoback/microsoft-translator": "dev-master",
+        "symfony/framework-bundle": ">=2.1,<2.3-dev"
+    },
+    "minimum-stability": "dev",
+    "autoload": {
+        "psr-0" : { "MatthiasNoback" : "src/" }
+    }
+}
