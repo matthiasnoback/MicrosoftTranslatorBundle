@@ -1,6 +1,6 @@
 {
     "name": "matthiasnoback/microsoft-translator-bundle",
-    "type": "library",
+    "type": "symfony-bundle",
     "description": "Bundle for using the Microsoft Translator V2 API",
     "keywords": ["translate","Microsoft Translator", "Bing"],
     "homepage": "http://github.com/matthiasnoback/microsoft-translator-bundle",
