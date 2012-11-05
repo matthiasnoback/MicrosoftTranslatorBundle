@@ -5,45 +5,38 @@
            xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
 
     <services>
-        <service id="matthiasnoback_microsoft_translator.browser.journal"
-                 class="Buzz\Listener\History\Journal"
+        <service id="matthiasnoback_microsoft_translator.cached_browser_client"
+                 class="MatthiasNoback\Buzz\Client\CachedClient"
                  public="false">
-            <call method="setLimit">
-                <argument>100</argument>
-            </call>
-        </service>
-
-        <service id="matthiasnoback_microsoft_translator.browser.history_listener"
-                 class="Buzz\Listener\HistoryListener">
-            <argument type="service" id="matthiasnoback_microsoft_translator.browser.journal" />
+            <argument /><!-- browser client -->
+            <argument /><!-- cache implementation -->
+            <argument /><!-- lifetime -->
+            <!--<call method="ignoreHeader">
+                <argument>Authorization</argument>
+            </call>-->
         </service>
 
         <service id="matthiasnoback_microsoft_translator.browser"
                  class="Buzz\Browser"
                  public="false">
-            <argument type="service" id="matthiasnoback_microsoft_translator.browser_client" />
-            <call method="addListener">
-                <argument type="service" id="matthiasnoback_microsoft_translator.browser.history_listener" />
-            </call>
-        </service>
-
-        <service id="matthiasnoback_microsoft_translator.data_collector"
-                 class="MatthiasNoback\MicrosoftTranslatorBundle\DataCollector\MicrosoftTranslatorDataCollector">
-            <argument type="service" id="matthiasnoback_microsoft_translator.browser.journal" />
-            <tag name="data_collector"
-                 template="MatthiasNobackMicrosoftTranslatorBundle:Profiler:MicrosoftTranslator.html.twig"
-                 id="microsoft_translator" />
+            <argument type="service" id="matthiasnoback_microsoft_translator.cached_browser_client" />
         </service>
 
         <service id="matthiasnoback_microsoft_translator.access_token_cache"
                  class="MatthiasNoback\MicrosoftOAuth\AccessTokenCache"
                  public="false">
-            <argument type="service" id="matthiasnoback_microsoft_translator.access_token_cache.cache" />
+            <argument /><!-- cache implementation -->
+        </service>
+
+        <service id="matthiasnoback_microsoft_translator.acces_token_provider.browser"
+                 class="Buzz\Browser"
+                 public="false">
+            <argument /><!-- browser client -->
         </service>
 
         <service id="matthiasnoback_microsoft_translator.access_token_provider"
                  class="MatthiasNoback\MicrosoftOAuth\AccessTokenProvider">
-            <argument type="service" id="matthiasnoback_microsoft_translator.browser" />
+            <argument type="service" id="matthiasnoback_microsoft_translator.acces_token_provider.browser" />
             <argument>%microsoft_oauth.client_id%</argument>
             <argument>%microsoft_oauth.client_secret%</argument>
             <call method="setCache">

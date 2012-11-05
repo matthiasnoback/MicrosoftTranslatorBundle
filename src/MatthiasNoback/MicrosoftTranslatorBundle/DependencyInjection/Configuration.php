@@ -13,54 +13,50 @@ class Configuration implements ConfigurationInterface
 
         $rootNode = $treeBuilder->root('matthiasnoback_microsoft_translator');
 
-        $validClients = array('file_get_contents', 'curl');
-        $validCacheTypes = array('array', 'apc');
-
         $rootNode
             ->children()
-                ->arrayNode('microsoft_oauth')
+                ->arrayNode('oauth')
                     ->isRequired()
                     ->children()
                         ->scalarNode('client_id')
+                            ->info('Client ID of your application for Microsoft OAuth')
                             ->isRequired()
                         ->end()
                         ->scalarNode('client_secret')
+                            ->info('Client secret of your application for Microsoft OAuth')
                             ->isRequired()
                         ->end()
-                    ->end()
-                ->end()
-                ->arrayNode('browser')
-                    ->addDefaultsIfNotSet()
-                    ->children()
-                        ->scalarNode('client')
-                            ->validate()
-                                ->ifNotInArray($validClients)
-                                ->then(function() use ($validClients) {
-                                    throw new \InvalidArgumentException(sprintf(
-                                        'Invalid client, should be one of: %s',
-                                        implode(', ', $validClients)
-                                    ));
-                                })
-                            ->end()
-                            ->defaultValue($validClients[0])
+                        ->scalarNode('browser_client')
+                            ->info('Service id of a Buzz browser client implementation')
+                            ->defaultNull()
+                        ->end()
+                        ->scalarNode('access_token_cache')
+                            ->info('Service id of a cache implementation for access token caching')
+                            ->defaultNull()
                         ->end()
                     ->end()
                 ->end()
-                ->arrayNode('access_token_cache')
+                ->arrayNode('translator')
                     ->addDefaultsIfNotSet()
                     ->children()
-                        ->scalarNode('cache')
-                            ->validate()
-                                ->ifNotInArray($validCacheTypes)
-                                ->then(function() use ($validCacheTypes) {
-                                    throw new \InvalidArgumentException(sprintf(
-                                        'Invalid cache type, should be one of: %s',
-                                        implode(', ', $validCacheTypes)
-                                    ));
-                                })
-                            ->end()
-                            ->defaultValue($validCacheTypes[0])
+                        ->scalarNode('browser_client')
+                            ->defaultNull()
+                            ->info('Service id of a Buzz browser client implementation')
                         ->end()
+                        ->arrayNode('response_cache')
+                            ->addDefaultsIfNotSet()
+                            ->children()
+                                ->scalarNode('id')
+                                    ->info('Service id of a cache implementation for response caching')
+                                    ->defaultNull()
+                                ->end()
+                                ->scalarNode('lifetime')
+                                    ->info('The lifetime of the cached responses in seconds')
+                                    ->defaultValue(0)
+                                ->end()
+                            ->end()
+                        ->end()
+                        ->scalarNode('response_cache')
                     ->end()
                 ->end()
             ->end();
