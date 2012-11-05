@@ -8,7 +8,7 @@ Using Composer, add to ``composer.json``:
 
     {
         "require": {
-            "matthiasnoback/microsoft-translator-bundle": "*"
+            "matthiasnoback/microsoft-translator-bundle": "dev-master"
         }
     }
 
