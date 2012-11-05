@@ -16,6 +16,21 @@ Then using the Composer binary:
 
     php composer.phar install
 
+Register the bundle in ``/app/AppKernel.php``:
+
+    <?php
+
+    class AppKernel extends Kernel
+    {
+        public function registerBundles()
+        {
+            $bundles = array(
+                // ...
+                new MatthiasNoback\MicrosoftTranslatorBundle\MatthiasNobackMicrosoftTranslatorBundle(),
+            );
+        }
+    }
+
 ## Usage
 
 This bundle wraps the corresponding [Microsoft Translator V2 API PHP library](https://github.com/matthiasnoback/microsoft-translator)
