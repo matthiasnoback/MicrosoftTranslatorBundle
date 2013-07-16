@@ -28,7 +28,7 @@
             <argument /><!-- cache implementation -->
         </service>
 
-        <service id="matthiasnoback_microsoft_translator.acces_token_provider.browser"
+        <service id="matthiasnoback_microsoft_translator.access_token_provider.browser"
                  class="Buzz\Browser"
                  public="false">
             <argument /><!-- browser client -->
@@ -36,7 +36,7 @@
 
         <service id="matthiasnoback_microsoft_translator.access_token_provider"
                  class="MatthiasNoback\MicrosoftOAuth\AccessTokenProvider">
-            <argument type="service" id="matthiasnoback_microsoft_translator.acces_token_provider.browser" />
+            <argument type="service" id="matthiasnoback_microsoft_translator.access_token_provider.browser" />
             <argument>%microsoft_oauth.client_id%</argument>
             <argument>%microsoft_oauth.client_secret%</argument>
             <call method="setCache">

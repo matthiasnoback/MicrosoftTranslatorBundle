@@ -14,9 +14,8 @@
     ],
     "require": {
         "matthiasnoback/microsoft-translator": "dev-master",
-        "symfony/framework-bundle": ">=2.1,<2.3-dev"
+        "symfony/framework-bundle": ">=2.1,<2.4-dev"
     },
-    "minimum-stability": "dev",
     "autoload": {
         "psr-0" : { "MatthiasNoback" : "src/" }
     }

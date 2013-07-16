@@ -115,7 +115,7 @@ class MatthiasNobackMicrosoftTranslatorExtension extends Extension
      */
     private function createDefaultBrowserClientDefinition($clientServiceId, ContainerBuilder $container)
     {
-        $clientDefinition = new Definition('Buzz\\Client\\FileGetContents');
+        $clientDefinition = new Definition('Buzz\Client\Curl');
         $container->setDefinition($clientServiceId, $clientDefinition);
     }
 
@@ -153,7 +153,7 @@ class MatthiasNobackMicrosoftTranslatorExtension extends Extension
      */
     private function createDefaultCacheServiceDefinition($cacheServiceId, ContainerBuilder $container)
     {
-        $cacheDefinition = new Definition('Doctrine\\Common\\Cache\\ArrayCache');
+        $cacheDefinition = new Definition('Doctrine\Common\Cache\ArrayCache');
         $container->setDefinition($cacheServiceId, $cacheDefinition);
 
         return $cacheDefinition;
