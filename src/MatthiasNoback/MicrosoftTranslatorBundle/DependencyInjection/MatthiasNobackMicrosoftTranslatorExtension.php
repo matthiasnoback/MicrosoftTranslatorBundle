@@ -58,7 +58,7 @@ class MatthiasNobackMicrosoftTranslatorExtension extends Extension
             $this->createDefaultBrowserClientDefinition($clientServiceId, $container);
         }
 
-        $browserDefinition = $container->getDefinition('matthiasnoback_microsoft_translator.acces_token_provider.browser');
+        $browserDefinition = $container->getDefinition('matthiasnoback_microsoft_translator.access_token_provider.browser');
         $browserDefinition->replaceArgument(0, new Reference($clientServiceId));
     }
 
