@@ -13,10 +13,15 @@
         }
     ],
     "require": {
-        "matthiasnoback/microsoft-translator": "0.*",
-        "symfony/framework-bundle": ">=2.1,<2.4-dev"
+        "matthiasnoback/microsoft-translator": "~0.5",
+        "symfony/framework-bundle": ">=2.1"
     },
     "autoload": {
         "psr-0" : { "MatthiasNoback" : "src/" }
+    },
+    "extra": {
+        "branch-alias": {
+            "dev-mwe": "0.3.x-dev"
+        }
     }
 }
